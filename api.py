@@ -1,34 +1,74 @@
-#!/Users/drade/Desktop/python/.venv/bin/python3
-
 import requests
 
-url = 'http://api.open-notify.org/astros.json'
+def api_astronaut_info():
+    url = "http://api.open-notify.org/astros.json"
+    response = requests.get(url)
 
-info = requests.get(url)
-# Realiza uma solicitação GET para a URL especificada e armazena a resposta em 'info'.
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        print('Falha na solicitação da API de astronautas')
+        return None
 
-if info.status_code == 200:
-    # Verifica se a resposta da solicitação foi bem-sucedida (código de status 200).
-
-    data = info.json()
-    # Converte a resposta JSON em um objeto Python e o armazena na variável 'data'.
-
-    number = data['number']
-    # Extrai o número de astronautas no espaço a partir dos dados recebidos e o armazena em 'number'.
-
-    print(f'\nNúmero de astronautas no espaço: {number}')
+def api_iss_position():
+    url = "http://api.open-notify.org/iss-now.json"
+    response = requests.get(url)
     
-    #CASO QUEIRA VER OS NOMES
+    if response.status_code == 200:
+        data = response.json()
+        return data
+    else:
+        print('Falha na solicitação da API da ISS')
+        return None
 
-    # astronaut_names = [astronaut['name'] for astronaut in data['people']]
-    # # Cria uma lista de nomes de astronautas.
+def numberAstronauts(data):
+    if data:
+        number = data['number']
+        print(f'\nNúmero de astronautas no espaço: {number}')
 
-    # print('\nNomes dos astronautas no espaço:')
-    # # Exibe um cabeçalho.
+def astronautNames(data):
+    if data:
+        names = [astronaut['name'] for astronaut in data['people']]
+        print('\nNomes dos astronautas no espaço:')
+        for name in names:
+            print(f'- {name}')
 
-    # for name in astronaut_names:
-    #     print(f'- {name}')
+def iss_position(data):
+    if data:
+        timestamp = data['timestamp']
+        latitude = data['iss_position']['latitude']
+        longitude = data['iss_position']['longitude']
 
-else:
-    print('Falha na solicitação da API')
-    # Se a solicitação não for bem sucedida, exibe uma mensagem de falha.
+        print(f'Timestamp: {timestamp}')
+        print(f'Latitude: {latitude}')
+        print(f'Longitude: {longitude}')
+
+def notFound():
+    print("Erro, escolha uma das opções!")
+
+def switch_case(case):
+    astronaut_all_info = api_astronaut_info()
+    iss_all_info = api_iss_position()
+    options = {
+        '1': numberAstronauts,
+        '2': astronautNames,
+        '3': iss_position
+    }
+    
+    selected_function = options.get(case, notFound)
+    
+    if selected_function == notFound:
+        selected_function()
+    elif case == '1':
+        selected_function(astronaut_all_info) 
+        #enviando informação da api para a função "numberAstronauts"
+    elif case == '2':
+        selected_function(astronaut_all_info)
+        #enviando informação da api para a função "astronautsNames"
+    elif case == '3':
+        selected_function(iss_all_info)
+        #enviando informação da api (iss) para a função "iss_position"
+
+user_input = input("Escolha uma das opções:\n1 - Número de astronautas no Espaço\n2 - Nome dos astronautas no espaço\n3 - Informações da ISS\nOpção:")
+switch_case(user_input)

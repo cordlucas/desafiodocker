@@ -3,8 +3,15 @@
 
 Utilizei este projeto para aplicar e treinar os meus conhecimentos com a linguagem Python e Fundamentos de Docker.
 
+<div align="center">
+  <img width="550" alt="print docker" src="https://github.com/cordlucas/desafiodocker/assets/92525395/a6c9dd69-0200-4ede-b7c2-84b3a8d9fbd0">
+</div>
 
-<img width="1440" alt="print" src="https://github.com/cordlucas/desafiodocker/assets/92525395/152cebf1-b3b6-499c-946e-bc0899b47a9f">
+#
+
+<div align="center">
+<img width="1000" alt="print att" src="https://github.com/cordlucas/desafiodocker/assets/92525395/25664077-f627-4cec-bb30-80c8056c77ee">
+</div>
 
 ## Documentação da API
 
@@ -13,7 +20,9 @@ Utilizei este projeto para aplicar e treinar os meus conhecimentos com a linguag
 ```http
   url = 'http://api.open-notify.org/astros.json'
 ```
-
+```http
+  url = "http://api.open-notify.org/iss-now.json"
+```
 
 
 ## Aprendizados
